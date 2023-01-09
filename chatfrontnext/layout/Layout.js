@@ -1,19 +1,27 @@
 import styles from './layout.module.css'
+import Header from './header/Header'
+import {Layout} from "antd";
 
-export default function Layout({children}) {
+export default function App({children, left, right}) {
     return(
-        <div className={styles.container}>
-        <div className={styles.leftContainer}>
+        <Layout className={styles.layout}>
+            <Header/>
+            <div className={styles.container}>
+                <div className={styles.leftContainer}>
+                    {left}
+                </div>
 
-        </div>
-        <main className={styles.mainContainer}>
-            <div className={styles.invisContainer}>
-                {children}
+                <main 
+                className={styles.mainContainer}
+                >
+                    {children}
+                </main>
+
+                <div className={styles.rightContainer}>
+                    {right}
+                </div>
             </div>
-        </main>
-        <div className={styles.rightContainer}>
 
-        </div>
-        </div>
+        </Layout>
     )
 }

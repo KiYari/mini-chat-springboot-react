@@ -1,7 +1,10 @@
 import Box from "../../box/Box";
 import styles from './chatroombox.module.css'
+import Link from "next/link";
 
 export default function ChatroomBox({children, isHere}) {
+    const roomName = "/chat/" + children;
+
     if(isHere) {
         return (
             <Box bg={"#b8f1ff"}>
@@ -9,12 +12,16 @@ export default function ChatroomBox({children, isHere}) {
             </Box>
         )
     }
+
     return(
 
-        <Box>
-            <div className={styles.box}>
-                {children}
-            </div>
-        </Box>
+        <Link href={roomName}>
+            <Box>
+                <div className={styles.box}>
+                    {children}
+                </div>
+            </Box>
+        </Link>
+        
     )
 }

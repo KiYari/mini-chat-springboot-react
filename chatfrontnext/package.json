@@ -7,10 +7,11 @@
   },
   "dependencies": {
     "@stomp/stompjs": "^6.1.2",
-    "antd": "^5.0.7",
+    "antd": "^5.1.2",
     "net": "^1.0.2",
     "next": "latest",
     "react": "18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",
     "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.1",
