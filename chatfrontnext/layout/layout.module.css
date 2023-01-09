@@ -1,0 +1,49 @@
+.container {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .invisContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: inherit;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 2;
+    width: inherit;
+    height: inherit;
+  }
+  
+  .mainContainer {
+    width: 70vw;
+    max-width: 70vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #e7e6fd;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 2;
+  }
+  
+  .leftContainer {
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #eaeaea;
+  }
+  
+  .rightContainer {
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #eaeaea;
+  }

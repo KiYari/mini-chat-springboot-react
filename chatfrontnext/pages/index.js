@@ -3,10 +3,14 @@ import styles from '../styles/Home.module.css';
 import * as SockJS from 'sockjs-client';
 import * as stompClient from 'stompjs';
 import { useState } from 'react';
+import Box from '../components/box/Box';
+import Login from '../components/login/Login';
+import Layout from '../layout/Layout';
 
 export default function Home() {
   var stompClient = null;
   const [error, onError] = useState();
+  const [login, setLogin] = useState("default");
 
   const connection = () => {
     const Stomp = require("stompjs");
@@ -26,49 +30,30 @@ export default function Home() {
       onMessageReceived
     );
   }
+  
+  const handleEnter = () => {
+    console.log(login);
+  }
 
-  const onMessageReceived = (msg) => {
-    const notification = JSON.parse(msg.body);
-    const active = JSON.parse(sessionStorage.getItem("recoil-persist"))
-      .chatActiveContact;
-
-    if (active.id === notification.senderId) {
-      findChatMessage(notification.id).then((message) => {
-        const newMessages = JSON.parse(sessionStorage.getItem("recoil-persist"))
-          .chatMessages;
-        newMessages.push(message);
-        setMessages(newMessages);
-      });
-    } else {
-      message.info("Received a new message from " + notification.senderName);
-    }
-    loadContacts();
-  };
-
-  const sendMessage = (msg) => {
-      const message = {
-        senderId: 1224,
-        recipientId: 2,
-        senderName: 'currentUser.name',
-        recipientName: 'activeContact.name',
-        content: 'msg',
-        timestamp: new Date(),
-      };
-        
-      stompClient.send("/app/chat", {}, JSON.stringify(message));
-  };
+  const handleChange = (e) => {
+    setLogin(e.target.value);
+  }
 
   return (
-    <div className={styles.container}>
-      <main>
-        <Button
-        type='primary'
-        onClick={connection}> connect </Button>
+    <Layout>
+        <Box>
+          <Login 
+          onPressEnter={handleEnter}
+          onChange={handleChange}
+          />
 
-        <Button
-        type='primary'
-        onClick={sendMessage}> send message </Button>
-      </main>
-    </div>
-  )
+          <Button
+          type='primary'
+          onClick={connection}> connect </Button>
+
+        </Box>
+  
+    </Layout>
+    )
+        
 }

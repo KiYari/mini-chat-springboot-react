@@ -1,0 +1,7 @@
+.scrollable {
+    overflow-y: scroll;
+    width: inherit;
+    height: inherit;
+    padding: 0;
+    margin: 0;
+}
