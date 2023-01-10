@@ -10,7 +10,7 @@ import MessagesWindow from "./chatWindow/messagesWindow/MessagesWindow";
 import Message from "./chatWindow/messagesWindow/message/Message";
 
 export default function ChatComponent() {
-    const [chatrooms, setChatrooms] = useState([<ChatroomBox isHere={true}>Initial</ChatroomBox>])
+    const [chatrooms, setChatrooms] = useState(['room1'])
     const addRoom = () => {
         setChatrooms(...chatrooms, <ChatroomBox>new</ChatroomBox>)
     }
@@ -37,7 +37,7 @@ export default function ChatComponent() {
         <main className={styles.chatMainInvisContainer}>
 
             <div className={styles.chatRooms}>
-                {chatrooms}
+                {chatrooms.map((room1) => <ChatroomBox>room</ChatroomBox>)}
             </div>
 
             <div className={styles.chatMessages}>

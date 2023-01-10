@@ -10,7 +10,7 @@ export default function App() {
 
     return(
         <InheritBox>
-            {roomsAvailable.map((room) => <ChatroomBox>
+            {roomsAvailable.map((room) => <ChatroomBox isHere={false}>
                 {room}
             </ChatroomBox>)}
         </InheritBox>

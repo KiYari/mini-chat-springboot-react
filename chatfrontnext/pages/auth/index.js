@@ -6,13 +6,15 @@ import { useState } from 'react';
 import Box from '../../components/box/Box';
 import Login from '../../components/login/Login';
 import Layout from '../../layout/Layout';
+import { useCookies }from 'react-cookie';
 
 export default function Home() {
   var stompClient = null;
   const [error, onError] = useState();
-  const [login, setLogin] = useState("default");
+  const [login, setLogin] = useState("NoName");
+  const [cookies, setCookie, removeCookie] = useCookies(['loginToEasyChat'])
 
-  const connection = () => {
+  const connection = (e) => {
     const Stomp = require("stompjs");
     var SockJS = require("sockjs-client");
     SockJS = new SockJS("http://localhost:8080/ws");
@@ -20,19 +22,17 @@ export default function Home() {
     stompClient = Stomp.over(SockJS);
     
     stompClient.connect({}, onConnected, onError);
+
+    setCookie('loginToEasyChat', login);
   }
 
   const onConnected = () => {
     console.log("connected");
 
-    stompClient.subscribe(
-      "/user/" + 2 + "/queue/message", 
-      onMessageReceived
-    );
-  }
-  
-  const handleEnter = () => {
-    console.log(login);
+    // stompClient.subscribe(
+    //   "/user/" + 2 + "/queue/message", 
+    //   onMessageReceived
+    // );
   }
 
   const handleChange = (e) => {
@@ -43,7 +43,7 @@ export default function Home() {
     <Layout>
         <Box>
           <Login 
-          onPressEnter={handleEnter}
+          onPressEnter={connection}
           onChange={handleChange}
           />
 
