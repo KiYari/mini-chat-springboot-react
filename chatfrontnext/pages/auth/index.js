@@ -1,38 +1,24 @@
 import { Button } from 'antd';
 import styles from '../../styles/Home.module.css';
-import * as SockJS from 'sockjs-client';
-import * as stompClient from 'stompjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '../../components/box/Box';
 import Login from '../../components/login/Login';
 import Layout from '../../layout/Layout';
 import { useCookies }from 'react-cookie';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Home() {
-  var stompClient = null;
+  const router = useRouter();
   const [error, onError] = useState();
   const [login, setLogin] = useState("NoName");
-  const [cookies, setCookie, removeCookie] = useCookies(['loginToEasyChat'])
+  const [cookies, setCookie, removeCookie] = useCookies(['loginToEasyChat', 'authorized', 'rooms', 'myId'])
 
   const connection = (e) => {
-    const Stomp = require("stompjs");
-    var SockJS = require("sockjs-client");
-    SockJS = new SockJS("http://localhost:8080/ws");
-    
-    stompClient = Stomp.over(SockJS);
-    
-    stompClient.connect({}, onConnected, onError);
-
     setCookie('loginToEasyChat', login);
-  }
-
-  const onConnected = () => {
-    console.log("connected");
-
-    // stompClient.subscribe(
-    //   "/user/" + 2 + "/queue/message", 
-    //   onMessageReceived
-    // );
+    setCookie('authorized', 'true');
+    setCookie('rooms', ['General']);
+    setCookie('myId', Math.floor(Math.random() * (65536 - 1) + 1));
   }
 
   const handleChange = (e) => {
@@ -42,14 +28,17 @@ export default function Home() {
   return (
     <Layout>
         <Box>
+          
           <Login 
           onPressEnter={connection}
           onChange={handleChange}
           />
 
-          <Button
-          type='primary'
-          onClick={connection}> connect </Button>
+          <Link href="/">
+            <Button
+            type='primary'
+            onClick={connection}> connect </Button>
+          </Link>
 
         </Box>
   
